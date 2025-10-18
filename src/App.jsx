@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Navigation from './components/Navigation';
 import Chat from './components/Chat';
 import SignUp from './components/SignUp';
@@ -11,23 +12,40 @@ function App() {
   const renderSection = () => {
     switch (activeSection) {
       case 'accueil':
-        return <Chat />;
+        return <Chat key="chat" />;
       case 'signup':
-        return <SignUp onSectionChange={setActiveSection} />;
+        return <SignUp key="signup" onSectionChange={setActiveSection} />;
       case 'login':
-        return <Login onSectionChange={setActiveSection} />;
+        return <Login key="login" onSectionChange={setActiveSection} />;
       case 'profile':
-        return <Profile onSectionChange={setActiveSection} />;
+        return <Profile key="profile" onSectionChange={setActiveSection} />;
       default:
-        return <Chat />;
+        return <Chat key="chat" />;
     }
   };
 
+  const pageVariants = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    exit: { opacity: 0, y: -20 }
+  };
+
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-950">
       <Navigation activeSection={activeSection} onSectionChange={setActiveSection} />
       <main className="pt-16">
-        {renderSection()}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeSection}
+            variants={pageVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            transition={{ duration: 0.3 }}
+          >
+            {renderSection()}
+          </motion.div>
+        </AnimatePresence>
       </main>
     </div>
   );
