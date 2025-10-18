@@ -3,19 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon Chatbot</title>
+    <title>ChatBot AI - Interface Moderne</title>
     <link rel="stylesheet" href="style.css">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2325140782760844" crossorigin="anonymous"></script>
 </head>
 <body>
-    <h1>Mon Chatbot</h1>
-    <div id="chat-container">
-        <div id="chat-box"></div>
-        <div class="input-group">
-            <input type="text" id="user-input" placeholder="Écrivez votre message ici..." onkeypress="event.key === 'Enter' && sendMessage()">
-            <button onclick="sendMessage()">Envoyer</button>
+    <!-- Navigation Menu -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">ChatBot AI</div>
+            <ul class="nav-menu">
+                <li><a href="#" class="nav-link active" onclick="showSection('accueil')">Accueil</a></li>
+                <li><a href="#" class="nav-link" onclick="showSection('signup')">Créer un compte</a></li>
+                <li><a href="#" class="nav-link" onclick="showSection('login')">Se connecter</a></li>
+                <li><a href="#" class="nav-link" onclick="showSection('profile')">Profil</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Accueil (Chat Section) -->
+        <section id="accueil" class="section active">
+            <div class="chat-container">
+                <div class="chat-header">
+                    <h2>Conversation</h2>
+                    <button class="new-chat-btn" onclick="clearChat()">Nouvelle conversation</button>
+                </div>
+                <div id="chat-box" class="chat-box">
+                    <div class="welcome-message">
+                        <h3>Bonjour! 👋</h3>
+                        <p>Comment puis-je vous aider aujourd'hui?</p>
+                    </div>
+                </div>
+                <div class="input-container">
+                    <div class="input-group">
+                        <input type="text" id="user-input" placeholder="Écrivez votre message ici..." onkeypress="if(event.key === 'Enter') sendMessage()">
+                        <button class="send-btn" onclick="sendMessage()">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Créer un compte (Sign Up) -->
+        <section id="signup" class="section">
+            <div class="auth-container">
+                <div class="auth-box">
+                    <h2>Créer un compte</h2>
+                    <p class="auth-subtitle">Rejoignez-nous pour commencer à discuter</p>
+                    <form id="signup-form" onsubmit="handleSignup(event)">
+                        <div class="form-group">
+                            <label for="signup-username">Nom d'utilisateur</label>
+                            <input type="text" id="signup-username" name="username" placeholder="Entrez votre nom d'utilisateur" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signup-email">Email</label>
+                            <input type="email" id="signup-email" name="email" placeholder="Entrez votre email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signup-password">Mot de passe</label>
+                            <input type="password" id="signup-password" name="password" placeholder="Entrez votre mot de passe" required>
+                        </div>
+                        <button type="submit" class="auth-btn">Créer un compte</button>
+                    </form>
+                    <p class="auth-footer">Vous avez déjà un compte? <a href="#" onclick="showSection('login')">Se connecter</a></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Se connecter (Login) -->
+        <section id="login" class="section">
+            <div class="auth-container">
+                <div class="auth-box">
+                    <h2>Se connecter</h2>
+                    <p class="auth-subtitle">Connectez-vous à votre compte</p>
+                    <form id="login-form" onsubmit="handleLogin(event)">
+                        <div class="form-group">
+                            <label for="login-email">Email</label>
+                            <input type="email" id="login-email" name="email" placeholder="Entrez votre email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="login-password">Mot de passe</label>
+                            <input type="password" id="login-password" name="password" placeholder="Entrez votre mot de passe" required>
+                        </div>
+                        <button type="submit" class="auth-btn">Se connecter</button>
+                    </form>
+                    <p class="auth-footer">Vous n'avez pas de compte? <a href="#" onclick="showSection('signup')">Créer un compte</a></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profil -->
+        <section id="profile" class="section">
+            <div class="profile-container">
+                <div class="profile-box">
+                    <h2>Profil Utilisateur</h2>
+                    <div class="profile-info">
+                        <div class="profile-avatar">
+                            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                        </div>
+                        <div class="profile-details">
+                            <h3 id="profile-username">Utilisateur Invité</h3>
+                            <p id="profile-email">Non connecté</p>
+                        </div>
+                    </div>
+                    <div class="profile-actions">
+                        <button class="profile-btn" onclick="showSection('login')">Se connecter</button>
+                        <button class="profile-btn secondary" onclick="handleLogout()">Se déconnecter</button>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
