@@ -3,8 +3,30 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --color-bg: 255, 255, 255;
+    --color-bg-secondary: 249, 250, 251;
+    --color-bg-tertiary: 243, 244, 246;
+    --color-text: 17, 24, 39;
+    --color-text-secondary: 107, 114, 128;
+    --color-border: 229, 231, 235;
+  }
+
+  .dark {
+    --color-bg: 15, 23, 42;
+    --color-bg-secondary: 30, 41, 59;
+    --color-bg-tertiary: 51, 65, 85;
+    --color-text: 241, 245, 249;
+    --color-text-secondary: 148, 163, 184;
+    --color-border: 51, 65, 85;
+  }
+
   body {
-    @apply bg-gray-950 text-white;
+    @apply bg-white dark:bg-slate-950 text-gray-900 dark:text-white transition-colors duration-300;
+  }
+
+  * {
+    @apply transition-colors duration-200;
   }
 }
 
@@ -15,14 +37,34 @@
   }
   
   .custom-scrollbar::-webkit-scrollbar-track {
-    @apply bg-gray-900;
+    @apply bg-gray-200 dark:bg-gray-900;
   }
   
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    @apply bg-gray-700 rounded;
+    @apply bg-gray-400 dark:bg-gray-700 rounded;
   }
   
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    @apply bg-gray-600;
+    @apply bg-gray-500 dark:bg-gray-600;
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    @apply bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent;
+  }
+
+  /* Card styles */
+  .card {
+    @apply bg-white dark:bg-slate-900 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-lg;
+  }
+
+  /* Button primary */
+  .btn-primary {
+    @apply bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg active:scale-95;
+  }
+
+  /* Button secondary */
+  .btn-secondary {
+    @apply bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg transition-all duration-300;
   }
 }
